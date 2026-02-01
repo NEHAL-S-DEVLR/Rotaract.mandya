@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotaract Club of Mandya</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com">  
+  // Project gallery upload (local)
+  const fileInput = document.getElementById('fileInput');
+  const gallery = document.getElementById('gallery');
+
+  fileInput?.addEventListener('change', () => {
+    [...fileInput.files].forEach(file => {
+      const url = URL.createObjectURL(file);
+      let card = document.createElement('div');
+      card.className = 'glass overflow-hidden';
+
+      if (file.type.startsWith('image')) {
+        card.innerHTML = `<img src="${url}" class="w-full h-48 object-cover hover:scale-105 transition" />`;
+      } else if (file.type.startsWith('video')) {
+        card.innerHTML = `<video src="${url}" controls class="w-full h-48 object-cover"></video>`;
+      }
+      gallery.appendChild(card);
+    });
+    fileInput.value = '';
+  });
+
+  function clearGallery() {
+    gallery.innerHTML = '';
+  }
+  
+  // ===== Slider Upload Logic =====
+  const sliderUpload = document.getElementById('sliderUpload');
+  const sliderTrack = document.getElementById('sliderTrack');
+  let currentSlide = 0;
+
+  sliderUpload?.addEventListener('change', () => {
+    sliderTrack.innerHTML = '';
+    currentSlide = 0;
+
+    [...sliderUpload.files].forEach(file => {
+      const url = URL.createObjectURL(file);
+      const slide = document.createElement('div');
+      slide.className = 'min-w-full h-[260px] md:h-[420px] flex items-center justify-center bg-black';
+
+      if (file.type.startsWith('image')) {
+        slide.innerHTML = `<img src="${url}" class="w-full h-full object-cover" />`;
+      } else if (file.type.startsWith('video')) {
+        slide.innerHTML = `<video src="${url}" controls class="w-full h-full object-cover"></video>`;
+      }
+
+      sliderTrack.appendChild(slide);
+    });
+  });
+
+  function updateSlide() {
+    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  function nextSlide() {
+    if (currentSlide < sliderTrack.children.length - 1) {
+      currentSlide++;
+      updateSlide();
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlide();
+    }
+  }
+</script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glass {
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.25rem;
+    }
+    img{
+      float: left;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body class="bg-black text-white scroll-smooth">
+
+<!-- MOBILE / DESKTOP NAV -->
+<header class="fixed top-0 left-0 w-full z-50 bg-black/70 backdrop-blur border-b border-white/5">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    <div class="flex items-center gap-3">
+      <img src="e50438dd3917a82226ed585d1c45e85c.png" class="h-8" />
+      <span class="font-black text-sm tracking-wide"></span>
+    </div>
+    <button id="menuBtn" class="md:hidden">
+      <i data-lucide="menu" class="w-6 h-6"></i>
+    </button>
+    <nav class="hidden md:flex gap-8 text-xs uppercase tracking-widest">
+      <a href="#about" class="hover:text-zinc-300">About</a>
+      <a href="#bod" class="hover:text-zinc-300">BOD</a>
+      <a href="#members" class="hover:text-zinc-300">Members</a> 
+      <a href="#projects" class="hover:text-zinc-300">Projects</a>
+      <a href="#contact" class="hover:text-zinc-300">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 space-y-4 text-sm">
+    <a href="#about" class="block">About</a>
+    <a href="#bod" class="block">Board of Directors</a>
+    <a href="#members" class="block">Members</a>
+    <a href="#projects" class="block">Projects</a>
+    <a href="#contact" class="block">Contact</a>
+  </div>
+</header>
+
+<div class="pt-24">
+
+<!-- HERO -->
+<section class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
+
+  <!-- Background Rotary Mark -->
+  <img src="PM2526-Stacked-Black-EN-US.png" class="absolute opacity-10 w-[600px] -top-40" />
+
+  <!-- Logos Row -->
+  <div class="flex items-center gap-6 mb-8">
+    <!-- Rotary / Rotaract Logo -->
+    <img src="Screenshot_2025-12-18_at_8.17.06_PM-removebg-preview.png" alt="Rotaract Logo" class="h-100 md:h-100 opacity-100" />
+    <!-- Club Logo (optional, replace if you have another PNG) -->
+    <!-- <img src="rotaract-mandya-logo.png" class="h-16 md:h-20" /> -->
+  </div>
+
+  <p class="text-[11px] tracking-[0.4em] uppercase text-zinc-400 mb-6"><i><b>Rotaract</b></i> </U><BR>District 3192</p>
+
+  <!-- Heading -->
+  <h1 class="text-5xl md:text-7xl font-black mb-6">
+    Rotaract Club of <span class="text-white">Mandya</span>
+  </h1>
+
+  <p class="max-w-2xl text-zinc-400 mb-10">
+    Service • Leadership • Fellowship
+  </p>
+
+  <div class="flex gap-4">
+    <a href="#about" class="bg-white text-black px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-widest">Explore</a>
+    <a href="#members" class="border border-white/20 px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-widest">Members</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="max-w-6xl mx-auto py-28 px-8">
+  <h2 class="text-4xl font-black mb-10">About Us</h2>
+  <div class="glass p-10 text-zinc-300 leading-relaxed">
+    <b> what is rotaract ?</b><br><br>A Rotaract club is a Rotary-sponsored service organization for young adults (18+) focused on leadership, professional development,<br> and community service, combining "Rotary" and "Action"<br><br>
+    <b>Now what is rotaract doing in mandya ?</b><br><br>
+    The Rotaract Club of Mandya, established in 2025 under Rotary Club of Mandya, is dedicated to empowering young adults through service, leadership, and fellowship.<br> We organize community service projects, professional development events, and social activities to foster personal growth and make a positive impact in Mandya. Our club is committed to the Rotary values of <br>service above self, promoting peace, and supporting education and health initiatives. Through collaboration and active engagement, we strive to create a better community and<br> develop future leaders.
+    <br>
+</div>
+</section>
+
+<!-- BOARD OF DIRECTORS -->
+<section id="bod" class="max-w-6xl mx-auto py-24 px-8">
+  <h2 class="text-4xl font-black mb-16">Board of Directors</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+
+    <div class="glass p-8 text-center transition transform hover:-translate-y-2 hover:border-white/30">
+      <h3 href="https://www.instagram.com/__geluu.____01/" class="font-bold text-xl">Geluvanth N Gowda</h3>
+      <p class="text-zinc-400 text-sm">President</p>
+    </div>
+    <div class="glass p-8 text-center transition transform hover:-translate-y-2 hover:border-white/30">
+      <h3 class="font-bold text-xl">Yashas M S</h3>
+      <p class="text-zinc-400 text-sm">Secretary</p>
+    </div>
+    <div class="glass p-8 text-center transition transform hover:-translate-y-2 hover:border-white/30">
+      <h3 class="font-bold text-xl">Nehal S</h3>
+      <p class="text-zinc-400 text-sm">Joint Secretary</p>
+    </div>
+    <div class="glass p-8 text-center transition transform hover:-translate-y-2 hover:border-white/30">
+      <h3 class="font-bold text-xl">Pranav Patel N M</h3>
+      <p class="text-zinc-400 text-sm">Treasurer</p>
+    </div>
+    <div class="glass p-8 text-center transition transform hover:-translate-y-2 hover:border-white/30">
+      <h3 class="font-bold text-xl">Amogh H P</h3>
+      <p class="text-zinc-400 text-sm">Community Service Director</p>
+    </div>
+    <div class="glass p-8 text-center transition transform hover:-translate-y-2 hover:border-white/30">
+      <h3 class="font-bold text-xl">Chirag S</h3>
+      <p class="text-zinc-400 text-sm">Professional Development Director</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<!-- MEMBERS -->
+<section id="members" class="max-w-6xl mx-auto py-24 px-6">
+  <h2 class="text-4xl font-black mb-10 text-center">Club Members</h2>
+  <input id="searchMember" placeholder="Search member..." class="w-full md:w-1/3 mx-auto mb-10 block bg-black border border-white/10 p-3 rounded-lg text-sm" />
+  <div id="memberGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+    <div class="glass p-6 text-center"><a href="https://www.instagram.com/__geluu.____01/" target="_blank">Geluvanth N Gowda</a></div>
+    <div class="glass p-6 text-center"><a href="https://www.instagram.com/x_paapu_x/" target="_blank">Yashas M S</a></div>
+    <div class="glass p-6 text-center"><a href="https://www.instagram.com/xnehxl/" target="_blank">Nehal S</a></div>
+    <div class="glass p-6 text-center">Pranav Patel N M</div>
+    <div class="glass p-6 text-center">Amogh H P</div>
+    <div class="glass p-6 text-center"><a href="https://www.instagram.com/y_chirag_s/" target="_blank">Chirag S</a></div>
+    <div class="glass p-6 text-center">Arun Kumar</div>
+    <div class="glass p-6 text-center">Nischith Gowda K </div>
+    <div class="glass p-6 text-center">Puneeth Gowda K N</div>
+    <div class="glass p-6 text-center">Monish R Gowda</div>
+    <div class="glass p-6 text-center">Suhas G S</div>
+    <div class="glass p-6 text-center">Chiranth R</div>
+    <div class="glass p-6 text-center">Balaji H C</div>
+    <div class="glass p-6 text-center">Chinmay gowda KN</div>
+    <div class="glass p-6 text-center">Rakshitha gowda</div>
+    <div class="glass p-6 text-center">Nimisha Jeevan kumar</div>
+    <div class="glass p-6 text-center">Raksha gowda</div>
+    <div class="glass p-6 text-center">Bhuvan abhinav</div>
+    <div class="glass p-6 text-center">Ganavi km</div>
+    <div class="glass p-6 text-center">Hitesh kumar</div>
+    <div class="glass p-6 text-center">Ashith gowda s</div>
+    <div class="glass p-6 text-center">Rohan Gowda K J</div>
+    <div class="glass p-6 text-center">Hitesh H R</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+  <section id="projects" class="max-w-6xl mx-auto py-24 px-6">
+  <h2 data-aos="fade-up" class="text-4xl font-black mb-12 text-center">Projects & Events</h2>
+
+  <div data-aos="zoom-in-up" class="glass p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center border border-white/10 hover:border-green-500/50 transition-all duration-500">
+
+    <div class="rounded-xl overflow-hidden bg-zinc-900/50 flex items-center justify-center h-48 md:h-64 border border-white/5">
+      <img 
+        src="Screenshot 2025-12-18 at 8.22.13 PM.png" 
+        alt="Project Banner" 
+        class="w-full h-full object-contain hover:scale-105 transition-transform duration-700" 
+      />
+    </div>
+
+    <div class="md:col-span-1 flex justify-center bg-zinc-900/50 rounded-xl h-48 md:h-64 border border-white/5">
+      <video 
+        src="AQOgA9e0LXHRwyASUaKFxZbR0eAIuYz-NJu9hmCOG7GzmJDJes8XLqD-iNbwqf7CCE8KOZfNqKO8_uvzkMsYPGUDKUpT9BfQ4UH5j74.mp4" 
+        controls 
+        poster="Screenshot 2026-02-01 at 11.51.00 AM.png" 
+        class="w-full h-full object-contain rounded-xl bg-black">
+        Your browser does not support video.
+      </video>
+    </div>
+
+    <div class="space-y-4">
+      <div class="inline-block px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-bold uppercase tracking-widest">
+        Community gathering
+      </div>
+      <h3 class="text-2xl font-black bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
+        Installation ceremony 2025-26
+      </h3>
+      <p class="text-zinc-400 text-sm leading-relaxed">This was the ceremony held by the rotaqract club of mandya to install the new board of directors for the year 2025-26. The event marked a significant milestone in the club's journey as this was infact starting of it , celebrating leadership and commitment to community service.here we witnessed cultural programs and also had a great time networking and socializing with fellow members and guests.
+        
+      </p>
+      <div class="flex items-center gap-4 text-zinc-500 text-xs font-medium">
+        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Mandya</span>
+        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 14 Dec 2025</span>
+      </div>
+    </div>
+
+    </div>
+    <div class="glass p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center border border-white/10 hover:border-green-500/50 transition-all duration-500 margin-bottom-10 mt-10">
+
+      <div class="rounded-xl overflow-hidden bg-zinc-900/50 flex items-center justify-center h-48 md:h-64 border border-white/5">
+        <img 
+          src="Screenshot 2026-02-01 at 11.53.57 AM.png" 
+          alt="Project Banner" 
+          class="w-full h-full object-contain hover:scale-105 transition-transform duration-700" 
+        />
+      </div>
+
+      <div class="md:col-span-1 flex justify-center bg-zinc-900/50 rounded-xl h-48 md:h-64 border border-white/5">
+        <video 
+          src="WhatsApp Video 2025-12-17 at 10.mp4" 
+          controls 
+          poster="WhatsApp Image 2025-12-17 at 10.28.03 PM.jpeg" 
+          class="w-full h-full object-contain rounded-xl bg-black">
+          Your browser does not support video.
+        </video>
+      </div>
+
+      <div class="space-y-4">
+        <div class="inline-block px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-bold uppercase tracking-widest">
+          Community Service
+        </div>
+        <h3 class="text-2xl font-black bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
+          Asvasane – Old Age Home Service
+        </h3>
+        <p class="text-zinc-400 text-sm leading-relaxed">
+          The Rotaract Club of Mandya organized <strong>Asvasane</strong>, a heartfelt service project at
+          Seeva Kirana Old Age Home. The initiative focused on sharing food, warmth, and quality time
+          with elderly residents, strengthening compassion and community bonding.
+        </p>
+        <div class="flex items-center gap-4 text-zinc-500 text-xs font-medium">
+          <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Mandya</span>
+          <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> 17 Dec 2025</span>
+        </div>
+      </div>
+    </div>
+        <div class="glass p-6 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center border border-white/10 hover:border-green-500/50 transition-all duration-500 margin-bottom-10 mt-10">
+
+      <div class="rounded-xl overflow-hidden bg-zinc-900/50 flex items-center justify-center h-48 md:h-64 border border-white/5">
+        <img 
+          src="Screenshot 2026-02-01 at 1.06.09 PM.png" 
+          alt="Project Banner" 
+          class="w-full h-full object-contain hover:scale-105 transition-transform duration-700" 
+        />
+      </div>
+
+      <div class="md:col-span-1 flex justify-center bg-zinc-900/50 rounded-xl h-48 md:h-64 border border-white/5">
+        <video 
+          src="Screen Recording 2026-02-01 at 2.mp4" 
+          controls 
+          poster="D2.jpeg" 
+          class="w-full h-full object-contain rounded-xl bg-black">
+          Your browser does not support video.
+        </video>
+      </div>
+
+      <div class="space-y-4">
+        <div class="inline-block px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-bold uppercase tracking-widest">
+          Community Service
+        </div>
+        <h3 class="text-2xl font-black bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
+          DROP's of hope -free vaccines for childrens
+        </h3>
+        <p class="text-zinc-400 text-sm leading-relaxed">
+          The Rotaract Club of Mandya organized <strong>DROP's of Hope</strong> this was an initiative from the indian government to provide free vaccines to children in need. The event focused on ensuring that children received essential immunizations to protect them from preventable diseases, promoting better health and well-being in the community.where 12 rotaractors volunteered to help the event run smoothly.
+        </p>
+        <div class="flex items-center gap-4 text-zinc-500 text-xs font-medium">
+          <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i>Kalhalli governament school, Mandya -571401.</span>
+          <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> Jan 6th, 2025</span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</section>
+
+<section id="contact" class="max-w-6xl mx-auto py-24 px-8">
+  <h2 class="text-4xl font-black mb-12 italic tracking-tighter">Contact <span class="text-zinc-500 text-3xl">/ Connect</span></h2>
+  
+  <div class="grid md:grid-cols-2 gap-8 items-stretch">
+    
+    <div class="glass p-8 flex flex-col border border-white/5 hover:border-white/20 transition-all duration-500">
+      <div class="flex-grow">
+        <h3 class="text-xl font-black mb-8 bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent italic">
+          Visit Our Hub
+        </h3>
+        
+        <div class="space-y-6">
+          <div class="flex gap-4 group">
+            <div class="p-3 rounded-lg bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-black transition-colors h-fit">
+              <i data-lucide="map-pin" class="w-5 h-5"></i>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed">
+              Swami Vivekanandha Road,<br>
+              5th Cross, Ashok Nagar, Near Bal Bawana,<br>
+              Mandya - 571401
+            </p>
+          </div>
+
+          <div class="flex gap-4 group">
+            <div class="p-3 rounded-lg bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-black transition-colors h-fit">
+              <i data-lucide="phone" class="w-5 h-5"></i>
+            </div>
+            <div class="text-zinc-400 text-sm self-center">
+              <p>+91 76765 41805 / +91 81399 31940</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 group">
+            <div class="p-3 rounded-lg bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-black transition-colors h-fit">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </div>
+            <p class="text-zinc-400 text-sm self-center">@rotaractmandya</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-white/10 flex flex-col gap-6">
+        <div class="flex items-center gap-5 group">
+          <div class="p-2 bg-white rounded-lg group-hover:scale-105 transition-transform duration-500 shadow-xl">
+            <img src="Screenshot 2026-02-01 at 12.20.00 PM.png" class="w-16 h-16 object-contain" alt="Instagram">
+          </div>
+          <div>
+            <p class="text-[9px] font-black uppercase tracking-widest text-pink-500">Follow Us</p>
+            <h4 class="text-sm font-bold text-white">Instagram</h4>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-5 group">
+          <div class="p-2 bg-white rounded-lg group-hover:scale-105 transition-transform duration-500 shadow-xl">
+            <img src="Screenshot 2026-02-01 at 12.48.30 PM copy.png" class="w-16 h-16 object-contain" alt="WhatsApp">
+          </div>
+          <div>
+            <p class="text-[9px] font-black uppercase tracking-widest text-green-500">Community</p>
+            <h4 class="text-sm font-bold text-white">WhatsApp</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass p-8 border border-white/5">
+      <h3 class="text-xl font-black mb-8 italic">Send a Message</h3>
+      <form class="space-y-4">
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">Your Name</label>
+          <input class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-white/30 focus:outline-none transition" placeholder="Enter name..." />
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">Email Address</label>
+          <input class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-white/30 focus:outline-none transition" placeholder="Email@example.com" />
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block font-bold">Message</label>
+          <textarea class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-white/30 focus:outline-none transition" rows="5" placeholder="How can we help?"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-white text-black py-4 rounded-xl font-black uppercase text-xs tracking-[0.2em] hover:bg-zinc-200 transition-all transform active:scale-95 shadow-lg shadow-white/5">
+          Send Inquiry
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<footer class="py-10 text-center text-zinc-500 text-xs">
+  © 2025 Rotaract Club of Mandya · District 3192
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Member search
+  const search = document.getElementById('searchMember');
+  const members = document.querySelectorAll('#memberGrid > div');
+  search?.addEventListener('input', () => {
+    const value = search.value.toLowerCase();
+    members.forEach(m => {
+      m.style.display = m.innerText.toLowerCase().includes(value) ? 'block' : 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
